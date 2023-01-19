@@ -1,0 +1,41 @@
+{
+    "env": {
+      "node": true
+    },
+    "extends": ["prettier", "plugin:node/recommended", "plugin:prettier/recommended"],
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "plugins": ["prettier"],
+    "rules": {
+        "prettier/prettier": "warn",
+        "no-console": "off",
+        "no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ],
+        "global-require": "off",
+        "import/no-dynamic-require": "off",
+        "no-plusplus": [
+          "error",
+          {
+            "allowForLoopAfterthoughts": true
+          }
+        ],
+        "no-restricted-syntax": "off",
+        "guard-for-in": "off",
+        "no-underscore-dangle": "off",
+        "consistent-return": "off",
+        "camelcase": "off",
+        "no-continue": "off",
+        "no-use-before-define": "off",
+        "no-bitwise": "off",
+        "no-param-reassign": "off",
+        "class-methods-use-this": "off",
+        "no-return-await": "off",
+        "no-process-exit": "off"
+    }
+  }
