@@ -14,7 +14,7 @@
 
 > cp .env.example .env
 
-3. (Optional) To use docker-compose go to .env file, comment the second line and uncomment the first one (MONGODB_URLs):
+3. (Optional) To use docker-compose go to .env file, comment the second line and uncomment the first one:
 
 > MONGODB_URL=mongodb://mongo-db:27017/brello
 
