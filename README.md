@@ -1,4 +1,4 @@
-# Flat-rent calendar
+# Trello-clone
 
 ## Installation
 
@@ -38,7 +38,7 @@
 
 > npm run dev
 
-2. Run server:
+2. Run client:
 
 > cd ui
 
