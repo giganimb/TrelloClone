@@ -84,7 +84,7 @@
             :rules="[passwordRules.required, passwordRules.minMax]"
             :type="showPassword ? 'text' : 'password'"
             label="Password"
-            :counter = "20"
+            :counter = "15"
             @click:append="showPassword = !showPassword"
             color="#6200EA"
           ></v-text-field>
@@ -95,7 +95,7 @@
             :rules="[passwordRules.required, passwordRules.minMax, (this.passwordConfirmation === this.password) || 'Passwords must match']"
             :type="showPasswordConfirmation ? 'text' : 'password'"
             label="Password confirmation"
-            :counter = "20"
+            :counter = "15"
             @click:append="showPasswordConfirmation = !showPasswordConfirmation"
             color="#6200EA"
           ></v-text-field>
@@ -164,7 +164,7 @@
         showPassword: false,
         showPasswordConfirmation: false,
         passwordRules: {
-            required: value => !!value || 'Required.',
+            required: value => !!value || 'Password is required',
             minMax: v => v.length >= 8 && v.length <= 15 || 'Password must be more than 8 and less than 15 characters',
           },
       }),

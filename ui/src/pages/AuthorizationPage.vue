@@ -58,7 +58,7 @@
             :type="showPassword ? 'text' : 'password'"
             label="Password"
             color="#6200EA"
-            :counter = "30"
+            :counter = "15"
             @click:append="showPassword = !showPassword"
           ></v-text-field>
 
@@ -106,8 +106,8 @@
         password: "",
         showPassword: false,
         passwordRules: {
-            required: value => !!value || 'Required.',
-            minMax: v => v.length >= 8 && v.length <= 15 || 'Password must be more than 8 and less than 15 characters',
+            required: value => !!value || 'Password is required',
+            minMax: v => v.length >= 8 && v.length <= 15 || 'Password must be from 8 to 15 characters',
           },
       }),
 
