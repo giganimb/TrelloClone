@@ -2,16 +2,13 @@
   <v-col cols="4">
     <v-card>
       <v-card-text>
-        <v-row align="center" justify="center">
-          <v-col >
-            <div @click="onWorkspaceClick" class="workspace-name">
-              {{ workspace.name }}
-            </div>
-          </v-col>
-          
-          <v-col>
-            <div style="margin-left: 70%;">
-              <v-btn 
+        <div class="d-flex flex-row align-center">
+          <div @click="onWorkspaceClick" class="workspace-name">
+            {{ workspace.name }}
+          </div>
+        
+          <div style="margin-left: auto; margin-right: 0;">
+            <v-btn 
               color="#6200EA"
               fab
               small
@@ -21,11 +18,10 @@
               <v-icon dark>
                 mdi-pencil
               </v-icon>
-              </v-btn>
-            </div>
-          </v-col>
-          
-        </v-row>
+            </v-btn>
+          </div>
+        </div>
+            
       </v-card-text>
     </v-card>
   </v-col>
@@ -73,7 +69,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 .edit-in-btn{
   margin-left: 30px;
   color: white!important;
@@ -90,5 +86,6 @@
 }
 .workspace-name:hover{
   cursor: pointer;
+  text-decoration: underline;
 }
 </style>

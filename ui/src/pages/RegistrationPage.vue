@@ -29,6 +29,7 @@
       </div>
       
       <v-card
+      width="600"
       elevation="5"
       class="reg-form rounded-lg">
 
@@ -209,10 +210,10 @@
     }
 </script>
 
-<style>
+<style scoped>
 .reg-form{
-  margin-left: 480px;
-  margin-right: 480px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 10px 50px 10px 50px;

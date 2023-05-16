@@ -3,14 +3,6 @@ import UserService from "@/services/UserService";
 export default{
     state: {
         user: {},
-        // user: {
-        //     email: 'admin1@gmail.com',
-        //     userName: "qwerty",
-        //     name: "Ivan",
-        //     surname: "Petrov",
-        //     password: "asdffgh",
-        //     roles: ['user'],
-        // },
         userError: null,
     },
 
@@ -38,7 +30,8 @@ export default{
         },
         async updateUser({ commit }, user){
             try{
-                const response = await UserService.updateUser(user.id, user.userName, user.name, user.surname);
+                console.log(`--store: ${user.image}`);
+                const response = await UserService.updateUser(user.id, user.userName, user.name, user.surname, user.image);
                 console.log(response);
                 commit("setUser", response.data);
             }

@@ -5,25 +5,6 @@ const socket = io('http://localhost:3000');
 
 export default{
     state: {
-        // lists: [
-        //     {
-        //         title: 'To Do',
-        //         cards: [
-        //           { body: 'English' },
-        //           { body: 'Mathematics' },
-        //         ]
-        //     },
-        //     {
-        //         title: 'Next Up',
-        //         cards: [
-        //           { body: 'Science' }
-        //         ]
-        //     },
-        //     {
-        //         title: 'In Progress',
-        //         cards: []
-        //     }
-        // ],
         lists: [],
         countOflists: null,
         listDialogVisible: false,
@@ -168,7 +149,7 @@ export default{
         },
         async updateCard({ commit }, card){
             try{
-                const response = await CardService.updateCard(card.id, card.name, card.boardId);
+                const response = await CardService.updateCard(card.id, card.name, card.boardId, card.description);
                 console.log(response);
                 commit("setCurrentCard", response.data);
             }

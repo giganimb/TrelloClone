@@ -7,6 +7,13 @@ const { updateUserSchema, getUserSchema } = require('../validations/user-validat
 const { validatePayload } = require('../middlewares/validate-payload-middleware');
 
 router.get('/profile/:id', getUserSchema, validatePayload, authorizationMiddleware, userController.getUser);
-router.patch('/profile/:id', updateUserSchema, validatePayload, authorizationMiddleware, userController.updateUser);
+router.patch(
+  '/profile/:id',
+  updateUserSchema,
+  validatePayload,
+  authorizationMiddleware,
+  userController.uploadImg,
+  userController.updateUser
+);
 
 module.exports = router;

@@ -40,69 +40,89 @@
     </v-alert>
 
     <work-navigation></work-navigation>
-    <div class="page-title">
-      <h1>Profile</h1>
-    </div>
-    
-    <v-form
-      ref="form"
-      v-model="valid"
-      lazy-validation
-      class="form"
-    >
-      <v-text-field
-          v-model="userName"
-          :counter="20"
-          :rules="userNameRules"
-          label="Username"
-          required
-          color="#6200EA"
-      ></v-text-field>
 
-      <v-text-field
-        v-model="name"
-        :counter="20"
-        :rules="nameRules"
-        label="Name"
-        required
-        color="#6200EA"
-      ></v-text-field>
-
-      <v-text-field
-        v-model="surname"
-        :counter="20"
-        :rules="surnameRules"
-        label="Surname"
-        required
-        color="#6200EA"
-      ></v-text-field>
-
-      <v-row>
-        <v-col>
-          <v-btn
-            color="#6200EA"
-            class="save-btn"
-            @click="getUser"
-            block
-          >
-            Reset
-          </v-btn>
-        </v-col>
-        
-        <v-col>
-          <v-btn
-          :disabled="!valid"
-          color="#6200EA"
-          class="save-btn"
-          @click="save"
-          block
+    <v-card style="margin-left: auto; margin-right: auto;" width="600" elevation="24">
+      <div class="page-title">
+        <h1>Profile</h1>
+      </div>
+      <div>
+        <v-form
+          ref="form"
+          v-model="valid"
+          lazy-validation
         >
-          Save changes
-        </v-btn>
-        </v-col>
-      </v-row>
+          <div class="d-flex flex-row justify-space-around">
+            <div style="width: 200px;">
+              <v-avatar size="128" style="margin-left: auto; margin-right: auto; display: block; margin-bottom: 34px;">
+                <img
+                  :src='`http://localhost:3000/images/${this.user?.imgPath?.split("\\")[1]}`'
+                >
+              </v-avatar>
+              <v-file-input
+                v-model="image"
+                :rules="avatarRules"
+                accept="image/png, image/jpeg, image/bmp"
+                placeholder="Pick an avatar"
+                prepend-icon="mdi-camera"
+                label="Avatar"
+                color="#6200EA"
+                dense
+                truncate-length="14"
+              ></v-file-input>
+            </div>
+            <div style="width: 300px;">
+              <v-text-field
+                v-model="userName"
+                :counter="20"
+                :rules="userNameRules"
+                label="Username"
+                required
+                color="#6200EA"
+              ></v-text-field>
 
-    </v-form>
+              <v-text-field
+                v-model="name"
+                :counter="20"
+                :rules="nameRules"
+                label="Name"
+                required
+                color="#6200EA"
+              ></v-text-field>
+
+              <v-text-field
+                v-model="surname"
+                :counter="20"
+                :rules="surnameRules"
+                label="Surname"
+                required
+                color="#6200EA"
+              ></v-text-field>
+
+              <div class="d-flex flex-row" style="width: 100px">
+                <v-btn
+                color="#6200EA"
+                class="ml-2 btn"
+                @click="getUser"
+                block
+                >
+                  Reset
+                </v-btn>
+                
+                <v-btn
+                :disabled="!valid"
+                color="#6200EA"
+                class="ml-10 btn"
+                @click="save"
+                block
+                >
+                  Save changes
+                </v-btn>
+              </div>
+            </div>
+          </div>
+        </v-form>
+      </div>
+    </v-card>
   </div>
 </template>
 
@@ -115,6 +135,7 @@ import WorkNavigation from '@/components/WorkNavigation.vue';
           errorMessage: '',
           errorAlert: false,
           successAlert: false,
+          image: null,
 
           userName: '',
           userNameRules: [
@@ -130,12 +151,17 @@ import WorkNavigation from '@/components/WorkNavigation.vue';
           surnameRules: [
             v => (v && v.length > 2 && v.length <= 20) || 'Surname must be more than 2 and less than 20 characters',
           ],
+
+          avatarRules: [
+            value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+          ],
         }),
         
         methods: {
           save(){
             this.$refs.form.validate();
-            this.$store.dispatch('updateUser', { id: this.user._id, userName: this.userName, name: this.name, surname: this.surname })
+            console.log(this.image);
+            this.$store.dispatch('updateUser', { id: this.user._id, userName: this.userName, name: this.name, surname: this.surname, image: this.image })
             .then((response) => {
               if(this.userError){
                 this.errorMessage = this.userError;
@@ -188,22 +214,20 @@ import WorkNavigation from '@/components/WorkNavigation.vue';
     }
 </script>
 
-<style>
-.save-btn{
+<style scoped>
+.btn{
   margin-top: 20px;
   margin-bottom: 20px;
   color: white!important;
 }
-.save-btn:hover{
+.btn:hover{
     background-color: #d1b5f8!important;
-}
-.form{
-  margin: 20px 500px 40px 500px;
 }
 .page-title{
   color: #0d001f;
   text-align: center;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 .v-alert {
   position: fixed;

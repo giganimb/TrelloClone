@@ -38,7 +38,7 @@ module.exports = {
   async updateBoard(id, body) {
     const conflict = await Board.findOne({ workspaceId: body.workspaceId, name: body.name });
 
-    if (conflict) throw ApiError.UnprocessableEntity('Board name already in use');
+    if (conflict && conflict._id != id) throw ApiError.UnprocessableEntity('Board name already in use');
 
     const updatedBoard = await Board.findByIdAndUpdate(id, body, { new: true });
 

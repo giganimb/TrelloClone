@@ -19,37 +19,6 @@
                     </router-link>
                 </v-toolbar-title>
                 
-                <!-- <v-menu offset-y>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                            dark
-                            color="#6200EA"
-                            depressed
-                            class="ml-5"
-                            v-bind="attrs"
-                            v-on="on"
-                            >
-                            Work spaces
-                        </v-btn>
-                    </template>
-                    <div></div>
-                    <v-list min-width="200px">
-                        <div class="work-spaces-text">Work spaces</div>
-                        <v-list-item
-                            v-for="(item, index) in items"
-                            :key="index"
-                            >
-                            <v-list-item-title>
-                                <div>
-                                    <v-divider class="my-3"></v-divider>
-                                </div>
-                                <div class="work-spaces-text">{{ item.title }}</div>
-                            </v-list-item-title>
-                            
-                        </v-list-item>
-                    </v-list>
-                </v-menu> -->
-
                 <v-btn
                 v-if="userRoles.includes('admin')"
                 dark
@@ -77,10 +46,13 @@
                             color="#6200EA"
                         >
                             <v-avatar
-                            color="#0d001f"
-                            size="40"
+                                color="#0d001f"
+                                size="40"
                             >
-                            <span class="white--text text-h6">{{ userInfo.initials }}</span>
+                                <span v-if="!user.imgPath" class="white--text text-h6">{{ userInfo.initials }}</span>
+                                <img v-else
+                                    :src='`http://localhost:3000/images/${user?.imgPath?.split("\\")[1]}`'
+                                >
                             </v-avatar>
                         </v-btn>
                         </template>
@@ -90,7 +62,10 @@
                                     <v-avatar
                                         color="#0d001f"
                                     >
-                                        <span class="white--text text-h5">{{ userInfo.initials }}</span>
+                                        <span v-if="!user.imgPath" class="white--text text-h5">{{ userInfo.initials }}</span>
+                                        <img v-else
+                                            :src='`http://localhost:3000/images/${user?.imgPath?.split("\\")[1]}`'
+                                        >
                                     </v-avatar>
                                     <h3 style="color: #0d001f; margin: 10px">{{ userInfo.fullName }}</h3>
                                     <p class="text-caption mt-1" style="color: #0d001f;">
@@ -134,12 +109,7 @@
         name: "work-navigation",
 
         data: () => ({
-            // items: [
-            //     { title: 'Click Me' },
-            //     { title: 'Click Me' },
-            //     { title: 'Click Me' },
-            //     { title: 'Click Me 2' },
-            // ],
+            
         }),
 
         methods: {
@@ -149,7 +119,7 @@
                 this.$router.push({name: 'start'});
             },
             getInitials(name, surname){
-                return name.charAt(0).toUpperCase() + surname.charAt(0).toUpperCase();
+                return name?.charAt(0).toUpperCase() + surname?.charAt(0).toUpperCase();
             },
             getFullName(name, surname){
                 return name + ' ' + surname;

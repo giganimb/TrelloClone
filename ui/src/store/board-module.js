@@ -29,7 +29,7 @@ export default{
     actions: {
         async getAllBoards({ commit }, board){
             try{
-                const response = await BoardService.getAllBoards(board.workspaceId, board.sort_type);
+                const response = await BoardService.getAllBoards(board.workspaceId, board.sort_type, board.sort_field);
                 console.log(response);
                 commit("setBoards", response.data);
             }
@@ -65,7 +65,7 @@ export default{
         },
         async updateBoard({ commit }, board){
             try{
-                const response = await BoardService.updateBoard(board.id, board.name, board.workspaceId);
+                const response = await BoardService.updateBoard(board.id, board.name, board.workspaceId, board.color, board.description);
                 console.log(response);
                 commit("setCurrentBoard", response.data);
             }

@@ -7,6 +7,7 @@ import workspace from "@/store/workspace-module";
 import board from "@/store/board-module";
 import list from "@/store/list-module";
 import admin from "@/store/admin-module";
+import youcomApi from "@/store/youcom-api-module";
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ const store = new Vuex.Store({
     board,
     list,
     admin,
+    youcomApi,
   }
 });
 

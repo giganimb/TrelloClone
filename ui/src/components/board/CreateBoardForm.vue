@@ -35,11 +35,11 @@
                   this.$store.dispatch('createBoard', { name: this.name, workspaceId: this.workspaceId })
                       .then((response) => {
                       if(this.boardError){
-                          this.$emit("createBoardError");
+                        this.$emit("createBoardError");
                           
                       }
                       else{
-                          this.$emit("createBoardSuccess");
+                        this.$emit("createBoardSuccess");
                       }
                   })
                       .catch((error) => {

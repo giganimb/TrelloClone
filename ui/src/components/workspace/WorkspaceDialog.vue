@@ -1,35 +1,34 @@
 <template>
   <v-dialog
         v-model="workspaceDialogVisible"
-        max-width="600"
+        max-width="500"
         @click:outside="onClickOutside"
       >
-        <v-card style="width:auto">
+        <v-card>
             <v-card-text>
-              <v-row style="width: 500px; margin: auto">
-                <div style="align-items: center; margin: 20px auto" class="d-flex">
-                  <v-text-field 
-                    v-model="currentWorkspace.name"
-                    :rules="nameRules"
-                    label="Name"
-                    :counter="14"
-                    color="#6200EA"
-                    >
-                  </v-text-field>
-                
-                  <v-btn 
+              <div class="pt-4 pb-4 d-flex flex-row align-center">
+                <v-text-field 
+                  v-model="currentWorkspace.name"
+                  :rules="nameRules"
+                  :maxlength="14"
+                  label="Name"
+                  :counter="14"
                   color="#6200EA"
-                  class="dialog-btn"
-                  @click="editWorkspace"
-                  >Edit</v-btn>
+                  >
+                </v-text-field>
+              
+                <v-btn 
+                color="#6200EA"
+                class="dialog-btn"
+                @click="editWorkspace"
+                >Save</v-btn>
 
-                  <v-btn 
-                  color="#6200EA"
-                  class="dialog-btn"
-                  @click="deleteWorkspace"
-                  >Delete</v-btn>
-                </div> 
-              </v-row>
+                <v-btn 
+                color="#6200EA"
+                class="dialog-btn"
+                @click="deleteWorkspace"
+                >Delete</v-btn>
+              </div> 
             </v-card-text>
         </v-card>
     </v-dialog>
@@ -99,12 +98,12 @@
     }
 </script>
 
-<style>
+<style scoped>
 .dialog-btn{
   margin-left: 30px;
   color: white!important;
 }
 .dialog-btn:hover{
-    background-color: #d1b5f8!important;
+  background-color: #d1b5f8!important;
 }
 </style>

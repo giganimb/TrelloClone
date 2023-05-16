@@ -1,31 +1,34 @@
 <template>
   <div class="list" @dragover.prevent>
     <div class="edit-button" @click="editList">
-      <img src="@/assets/images/edit.png" width="16px" height="16px">
+      <img src="@/assets/icons/edit.png" width="16px" height="16px">
     </div>
     <div class="close-button" @click="removeList">
-      <img src="@/assets/images/x.png" width="14px" height="14px">
+      <img src="@/assets/icons/close.png" width="20px" height="20px">
     </div>
     <div class="title">
       {{ list.name }}
     </div>
-    <div class="cards" v-if="cardCount > 0">
+    <div class="cards d-flex flex-column align-center" v-if="cardCount > 0">
       <card-item
-      v-bind:key="card._id"
-      v-for="card in list.cards"
-      :card="card"
-      @deleteCardError="onDeleteCardError"
-      @deleteCardSuccess="onDeleteCardSuccess"
-      @updateCardsBetweenListsError="onUpdateCardsBetweenListsError"
-      @updateCardsBetweenListsSuccess="onUpdateCardsBetweenListsSuccess"></card-item>
+        v-bind:key="card._id"
+        v-for="card in list.cards"
+        :card="card"
+        @deleteCardError="onDeleteCardError"
+        @deleteCardSuccess="onDeleteCardSuccess"
+        @updateCardsBetweenListsError="onUpdateCardsBetweenListsError"
+        @updateCardsBetweenListsSuccess="onUpdateCardsBetweenListsSuccess">
+      </card-item>
     </div>
     <card-draft
-    :listId="this.list._id"
-    @createCardError="onCreateCardError"
-    @createCardSuccess="onCreateCardSuccess"></card-draft>
+      :listId="this.list._id"
+      @createCardError="onCreateCardError"
+      @createCardSuccess="onCreateCardSuccess">
+    </card-draft>
     <card-dialog
-        @updateCardError="onUpdateCardError"
-        @updateCardSuccess="onUpdateCardSuccess"></card-dialog>
+      @updateCardError="onUpdateCardError"
+      @updateCardSuccess="onUpdateCardSuccess">
+    </card-dialog>
   </div>
 </template>
 
@@ -106,7 +109,7 @@ import CardDialog from '../card/CardDialog.vue';
   align-items: flex-start;
   min-width: 290px;
   width: 290px;
-  background-color: #e0e0e0;
+  background-color: #d1b5f8;
   border-radius: 8px;
   padding: 15px;
 
@@ -117,11 +120,21 @@ import CardDialog from '../card/CardDialog.vue';
     right: 14px;
     font-size: 28px;
     cursor: pointer;
+    transition: transform 0.5s;
+  }
+
+  .close-button:hover {
+    transform: rotate(360deg);
   }
 
   .edit-button {
     z-index: 50;
     cursor: pointer;
+    transition: transform 0.5s;
+  }
+
+  .edit-button:hover {
+    transform: rotate(360deg);
   }
 
   .title {

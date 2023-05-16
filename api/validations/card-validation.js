@@ -46,9 +46,9 @@ const createCardSchema = checkSchema({
     trim: true,
     isLength: {
       options: {
-        max: 500,
+        max: 1000,
       },
-      errorMessage: 'Description must be less than 500 characters',
+      errorMessage: 'Description must be less than 1000 characters',
     },
   },
   listId: {
@@ -93,9 +93,9 @@ const updateCardSchema = checkSchema({
     trim: true,
     isLength: {
       options: {
-        max: 500,
+        max: 1000,
       },
-      errorMessage: 'Description must be less than 500 characters',
+      errorMessage: 'Description must be less than 1000 characters',
     },
   },
 });

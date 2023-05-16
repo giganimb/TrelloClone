@@ -1,29 +1,29 @@
 <template>
     <v-dialog
           v-model="listDialogVisible"
-          max-width="600"
+          max-width="400"
           @click:outside="onClickOutside"
         >
-          <v-card style="width:auto">
+          <v-card>
               <v-card-text>
-                <v-row style="width: 500px; margin: auto">
-                  <div style="align-items: center; margin: 20px auto" class="d-flex">
-                    <v-text-field 
-                      v-model="currentList.name"
-                      :rules="nameRules"
-                      label="Name"
-                      :counter="14"
-                      color="#6200EA"
-                      >
-                    </v-text-field>
-                  
-                    <v-btn 
+                <div class="pt-4 pb-4 d-flex flex-row align-center">
+                  <v-text-field 
+                    v-model="currentList.name"
+                    :rules="nameRules"
+                    label="Name"
+                    :counter="14"
+                    :maxlength="14"
+                    color="#6200EA"
+                    >
+                  </v-text-field>
+                
+                  <v-btn 
                     color="#6200EA"
                     class="dialog-btn"
                     @click="editList"
-                    >Edit</v-btn>
-                  </div> 
-                </v-row>
+                    >Save
+                  </v-btn>
+                </div> 
               </v-card-text>
           </v-card>
       </v-dialog>
@@ -75,7 +75,7 @@
       }
   </script>
   
-  <style>
+  <style scoped>
   .dialog-btn{
     margin-left: 30px;
     color: white!important;

@@ -1,6 +1,6 @@
 <template>
   <form :class="classList" @submit.prevent="addList">
-    <input type="text" class="text-input" contenteditable="true" v-model="name" ref="textInput" placeholder="Add new list" @focusin="startEditing" @focusout="finishEditing">
+    <input type="text" class="text-input" maxlength="14" contenteditable="true" v-model="name" ref="textInput" placeholder="Add new list" @focusin="startEditing" @focusout="finishEditing">
     <button type="submit" class="add-button" v-if="isEditing || isAddable">
       Add
     </button>
@@ -86,14 +86,14 @@
     margin-top: 40px;
     padding: 20px 15px;
     width: calc(100% - 30px);
-    background-color: #ccc;
+    background-color: #cccccc;
     border-radius: 8px;
     cursor: pointer;
     border: none;
     font-family: "Noto Sans Japanese", "Noto Sans", sans-serif;
     font-weight: 700;
     font-size: 24px;
-    color: #242424;
+    color: #0d001f;
     cursor: pointer;
     overflow: overlay;
   }
@@ -106,13 +106,13 @@
   .add-button {
     margin-top: 15px;
     padding: 15px 18px;
-    background-color: #999;
+    background-color: #999999;
     border: none;
     border-radius: 8px;
     font-family: "Noto Sans Japanese", "Noto Sans", sans-serif;
     font-weight: 700;
     font-size: 18px;
-    color: #fff;
+    color: #ffffff;
   }
 
   .add-button:hover {
@@ -122,7 +122,7 @@
 
 .list-draft.active, .card-draft.addable {
   .text-input {
-    background-color: #fff;
+    background-color: #cccccc;
   }
 }
 
@@ -134,13 +134,13 @@
 
 .list-draft.addable {
   .add-button {
-    background-color: #823de1;
+    background-color: #6200EA;
     pointer-events: auto;
     cursor: pointer;
   }
 
   .add-button:active {
-    background-color: #6200EA;
+    background-color: #823de1;
   }
 }
 </style>

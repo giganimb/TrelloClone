@@ -21,7 +21,7 @@ const getAllSchema = checkSchema({
     isString: { errorMessage: 'Sort field should be string' },
     trim: true,
     isIn: {
-      options: [['name']],
+      options: [['name', 'createdAt']],
       errorMessage: 'Sort field is invalid',
     },
   },

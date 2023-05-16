@@ -6,3 +6,9 @@ node_modules/
 
 # IDE - VSCode
 .vscode
+
+# Images
+public/
+
+# Log
+server.log

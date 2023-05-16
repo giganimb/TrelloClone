@@ -1,6 +1,6 @@
 <template>
   <form :class="classList" @submit.prevent="addCardToList" @drop="onDrop" @dragover.prevent>
-    <input type="text" class="text-input" contenteditable="true" v-model="name" ref="textInput" placeholder="Add new card" @focusin="startEditing" @focusout="finishEditing">
+    <input type="text" class="text-input" maxlength="14" contenteditable="true" v-model="name" ref="textInput" placeholder="Add new card" @focusin="startEditing" @focusout="finishEditing">
     <button type="submit" class="add-button" v-if="isEditing || isAddable">
       Add
     </button>
@@ -47,12 +47,24 @@ import { mapMutations } from 'vuex';
               this.name = '';
             },
             onDrop({ dataTransfer }) {
-            const { from } = JSON.parse(dataTransfer.getData("application/json"));
-            const to = {
-                listIndex: this.$parent.index,
-                cardIndex: null
-            }
-            this.moveCardToList({ from, to });
+                const { from } = JSON.parse(dataTransfer.getData("application/json"));
+                const to = {
+                    listId: this.listId,
+                    cardPosition: null,
+                }
+
+                this.$store.dispatch('updateCardsBetweenLists', { from: from, to: to, boardId: this.$route.params.id })
+                      .then((response) => {
+                      if(this.listError){
+                        this.$emit("updateCardsBetweenListsError");
+                      }
+                      else{
+                        this.$emit("updateCardsBetweenListsSuccess");
+                      }
+                  })
+                      .catch((error) => {
+                      console.log(error);
+                  });
             },
             ...mapMutations({
                 moveCardToList: 'moveCardtoList'
@@ -94,20 +106,20 @@ import { mapMutations } from 'vuex';
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
 
   .text-input {
     padding: 15px;
     width: calc(100% - 30px);
-    background-color: #ccc;
+    background-color: #cccccc;
     border-radius: 8px;
     cursor: pointer;
     border: none;
     font-family: "Noto Sans Japanese", "Noto Sans", sans-serif;
     font-weight: 700;
     font-size: 18px;
-    color: #242424;
+    color: #0d001f;
     cursor: pointer;
     overflow: overlay;
   }
@@ -120,7 +132,9 @@ import { mapMutations } from 'vuex';
   .add-button {
     margin-top: 15px;
     padding: 15px 18px;
-    background-color: #999;
+    align-self: flex-start;
+    margin-left: 15px;
+    background-color: #999999;
     border: none;
     border-radius: 8px;
     font-family: "Noto Sans Japanese", "Noto Sans", sans-serif;
@@ -148,13 +162,17 @@ import { mapMutations } from 'vuex';
 
 .card-draft.addable {
   .add-button {
-    background-color: #823de1;
+    background-color: #6200EA;
     pointer-events: auto;
     cursor: pointer;
   }
 
+  .add-button:hover {
+    background-color: #823de1;
+  }
+
   .add-button:active {
-    background-color: #6200EA;
+    background-color: #823de1;
   }
 }
 </style>

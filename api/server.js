@@ -28,6 +28,8 @@ app.use(
 app.disable('x-powered-by');
 app.disable('server');
 
+app.use('/images', express.static('./public'));
+app.use('/storage', express.static('./static'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

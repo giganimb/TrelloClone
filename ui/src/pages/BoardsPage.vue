@@ -19,40 +19,62 @@
           </v-col>
         </v-row>
       </v-alert>
-  
-      <work-navigation></work-navigation>
       
-      <div>
-        <div class="page-title">
-          <h1>Boards</h1>
+      <div v-if="!this.boards">
+        <h1 style="text-align:center">Loading...</h1>
+      </div>
+      <div v-else>
+        <work-navigation></work-navigation>
+        <div>
+          <div class="page-title">
+            <h1>Boards</h1>
+          </div>
+          <v-container>
+            <div class="d-flex flex-row justify-start">
+              <create-board-form
+                @createBoardError="onBoardError"
+                @createBoardSuccess="onBoardSuccess">
+              </create-board-form>
+              <div style="width: 100%;" class="d-flex flex-row align-end">
+                <v-combobox
+                  class="ml-4"
+                  label="Sort by"
+                  v-model="fieldSelect"
+                  :items="fieldItems"
+                  color="#823DE1"
+                  @change="onComboboxChange"
+                  outlined
+                  dense
+                ></v-combobox>
+                <v-combobox
+                  class="ml-4"
+                  label="Order"
+                  v-model="typeSelect"
+                  :items="typeItems"
+                  color="#823DE1"
+                  @change="onComboboxChange"
+                  outlined
+                  dense
+                ></v-combobox>
+              </div>
+            </div>
+            
+            <v-row class="mt-2">
+              <board-item
+                v-bind:key="board._id"
+                v-for="board in this.boards"
+                :board="board"
+                @getListsError="onListError"
+              />
+            </v-row>
+            <board-dialog
+              @updateBoardError="onBoardError"
+              @updateBoardSuccess="onBoardSuccess"
+              @deleteBoardError="onBoardError"
+              @deleteBoardSuccess="onBoardSuccess">
+            </board-dialog>
+          </v-container>
         </div>
-        <v-container>
-          <create-board-form
-          @createBoardError="onBoardError"
-          @createBoardSuccess="onBoardSuccess"></create-board-form>
-          <v-combobox
-            label="Sort by name"
-            v-model="select"
-            :items="items"
-            color="#823DE1"
-            @change="onComboboxChange"
-            outlined
-            style="margin: 0px 220px"
-          ></v-combobox>
-          <v-row>
-            <board-item
-              v-bind:key="board._id"
-              v-for="board in this.boards"
-              :board="board"
-              @getListsError="onListError"
-            />
-          </v-row>
-          <board-dialog
-          @updateBoardError="onBoardError"
-          @updateBoardSuccess="onBoardSuccess"
-          @deleteBoardError="onBoardError"
-          @deleteBoardSuccess="onBoardSuccess"></board-dialog>
-        </v-container>
       </div>
     </div>
   </template>
@@ -66,10 +88,33 @@
           components:{ WorkNavigation, CreateBoardForm, BoardItem, BoardDialog },
           data: () => ({
             errorAlert: false,
-            select: 'Asc',
-            items: [
-              'Asc',
-              'Desc',
+            typeSelect: {
+              text: 'Asc',
+              value: 'asc',
+            },
+            typeItems: [
+              {
+                text: 'Asc',
+                value: 'asc',
+              },
+              {
+                text: 'Desc',
+                value: 'desc',
+              }
+            ],
+            fieldSelect: {
+              text: 'Name',
+              value: 'name',
+            },
+            fieldItems: [
+              {
+                text: 'Name',
+                value: 'name',
+              },
+              {
+                text: 'Creation date',
+                value: 'createdAt',
+              }
             ],
           }),
   
@@ -81,14 +126,14 @@
             },
             onComboboxChange(){
               this.$store.dispatch('getAllBoards', { workspaceId: this.$route.params.id ?? this.workspaceId, 
-                                                     sort_type: this.select.toLowerCase()});
+                                                     sort_type: this.typeSelect.value, sort_field: this.fieldSelect.value});
             },
             onBoardError() {
               this.errorAlert = true;
             },
             onBoardSuccess() {
               this.$store.dispatch('getAllBoards', { workspaceId: this.$route.params.id ?? this.workspaceId, 
-                                                     sort_type: this.select.toLowerCase()});
+                                                     sort_type: this.typeSelect.value, sort_field: this.fieldSelect.value});
             },
             onListError(){
               this.errorAlert = true;
@@ -124,7 +169,7 @@
             // this.$store.dispatch('getUser', this.authId);
             this.$store.dispatch('getWorkspace', this.$route.params.id ?? this.workspaceId);
             this.$store.dispatch('getAllBoards', { workspaceId: this.$route.params.id ?? this.workspaceId, 
-                                                     sort_type: this.select.toLowerCase()});
+                                                     sort_type: this.typeSelect.value, sort_field: this.fieldSelect.value});
           },
 
           // created(){

@@ -9,8 +9,8 @@ export default class CardService{
         return $api.post(`/card/`, { name: name, listId: listId, boardId: boardId});
     }
 
-    static async updateCard(id, name, boardId){
-        return $api.patch(`/card/${id}`, { name: name, boardId: boardId });
+    static async updateCard(id, name, boardId, description){
+        return $api.patch(`/card/${id}`, { name: name, boardId: boardId, description: description });
     }
 
     static async deleteCard(id, boardId){

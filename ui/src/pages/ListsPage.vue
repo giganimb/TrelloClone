@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="height: 100%;">
         <v-alert
         prominent
         type="error"
@@ -18,31 +18,41 @@
             </v-col>
             </v-row>
         </v-alert>
-  
-        <work-navigation></work-navigation>
         
-        <div class="main">
-            <list-item
-            v-bind:key="list._id"
-            v-for="list in lists"
-            :list="list"
-            @deleteListError="onListError"
-            @deleteListSuccess="onListSuccess"
-            @createCardError="onCardError"
-            @createCardSuccess="onCardSuccess"
-            @deleteCardError="onCardError"
-            @deleteCardSuccess="onCardSuccess"
-            @updateCardError="onCardError"
-            @updateCardSuccess="onCardSuccess"
-            @updateCardsBetweenListsError="onCardError"
-            @updateCardsBetweenListsSuccess="onCardSuccess"></list-item>
-            <list-draft
-            @createListError="onListError"
-            @createListSuccess="onListSuccess"></list-draft>
+        <div v-if="!this.lists">
+            <h1 style="text-align:center">Loading...</h1>
         </div>
-        <list-dialog
-        @updateListError="onListError"
-        @updateListSuccess="onListSuccess"></list-dialog>
+        <div v-else style="height: 100%;">
+            <work-navigation></work-navigation>
+        
+            <div class="h-scroll">
+                <div class="main">
+                    <list-item
+                        v-bind:key="list._id"
+                        v-for="list in lists"
+                        :list="list"
+                        @deleteListError="onListError"
+                        @deleteListSuccess="onListSuccess"
+                        @createCardError="onCardError"
+                        @createCardSuccess="onCardSuccess"
+                        @deleteCardError="onCardError"
+                        @deleteCardSuccess="onCardSuccess"
+                        @updateCardError="onCardError"
+                        @updateCardSuccess="onCardSuccess"
+                        @updateCardsBetweenListsError="onCardError"
+                        @updateCardsBetweenListsSuccess="onCardSuccess">
+                    </list-item>
+                    <list-draft
+                        @createListError="onListError"
+                        @createListSuccess="onListSuccess">
+                    </list-draft>
+                </div>
+            </div>
+            
+            <list-dialog
+            @updateListError="onListError"
+            @updateListSuccess="onListSuccess"></list-dialog>
+        </div>
     </div>
 </template>
 
@@ -117,14 +127,18 @@ import ListDialog from '@/components/list/ListDialog.vue';
     }
 </script>
 
-<style>
+<style scoped>
+.h-scroll{
+    height: calc(100% - 50px);
+    overflow-y: hidden;
+    overflow-x: auto;
+}
 .main{
     margin-top: 20px;
     padding: 0 20px;
     display: flex;
-    overflow-x: scroll;
     width: calc(100% - 40px);
-    height: calc(162% - 100px);
+    height: 100%;
 }
 .v-alert {
     position: fixed;

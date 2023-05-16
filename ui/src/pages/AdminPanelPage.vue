@@ -90,7 +90,7 @@ import UserInfoDialog from '@/components/user/UserInfoDialog.vue';
     }
 </script>
 
-<style>
+<style scoped>
 .v-alert {
     position: fixed;
     z-index: 100;

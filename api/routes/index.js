@@ -5,7 +5,8 @@ const workspaceRouter = require('./workspace-router');
 const boardRouter = require('./board-router');
 const listRouter = require('./list-router');
 const cardRouter = require('./card-router');
+const youcomApiRouter = require('./youcom-api-router');
 
 module.exports = {
-  routes: [authRouter, adminRouter, userRouter, workspaceRouter, boardRouter, listRouter, cardRouter],
+  routes: [authRouter, adminRouter, userRouter, workspaceRouter, boardRouter, listRouter, cardRouter, youcomApiRouter],
 };
