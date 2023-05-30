@@ -1,6 +1,6 @@
 <template>
   <v-col cols="4">
-    <v-card>
+    <v-card elevation="10">
       <v-card-text>
         <div class="d-flex flex-row align-center">
           <div @click="onWorkspaceClick" class="workspace-name">
@@ -83,6 +83,7 @@
   font-weight: 500; 
   color:#0d001f; 
   margin-right: 30px;
+  word-break: break-word;
 }
 .workspace-name:hover{
   cursor: pointer;

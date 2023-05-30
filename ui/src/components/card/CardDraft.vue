@@ -1,6 +1,6 @@
 <template>
   <form :class="classList" @submit.prevent="addCardToList" @drop="onDrop" @dragover.prevent>
-    <input type="text" class="text-input" maxlength="14" contenteditable="true" v-model="name" ref="textInput" placeholder="Add new card" @focusin="startEditing" @focusout="finishEditing">
+    <input type="text" class="text-input" maxlength="100" contenteditable="true" v-model="name" ref="textInput" placeholder="Add new card" @focusin="startEditing" @focusout="finishEditing">
     <button type="submit" class="add-button" v-if="isEditing || isAddable">
       Add
     </button>

@@ -11,8 +11,8 @@
                     v-model="currentList.name"
                     :rules="nameRules"
                     label="Name"
-                    :counter="14"
-                    :maxlength="14"
+                    :counter="30"
+                    :maxlength="30"
                     color="#6200EA"
                     >
                   </v-text-field>
@@ -35,7 +35,7 @@
   
         data: () => ({
             nameRules: [
-              v => (v && v.length >= 2 && v.length <= 14) || 'Name must be more than 2 and less than 14 characters',
+              v => (v && v.length >= 2 && v.length <= 30) || 'Name must be more than 2 and less than 30 characters',
             ],
         }),
   

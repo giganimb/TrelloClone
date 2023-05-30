@@ -137,7 +137,7 @@ export default{
         },
         async createCard({ commit }, card){
             try{
-                const response = await CardService.createCard(card.name, card.listId, card.boardId);
+                const response = await CardService.createCard(card.name, card.listId, card.boardId, card.workspaceId);
                 console.log(response);
                 commit("setCurrentCard", response.data);
             }
@@ -149,7 +149,7 @@ export default{
         },
         async updateCard({ commit }, card){
             try{
-                const response = await CardService.updateCard(card.id, card.name, card.boardId, card.description);
+                const response = await CardService.updateCard(card.id, card.name, card.boardId, card.description, card.expiryDate, card.priority);
                 console.log(response);
                 commit("setCurrentCard", response.data);
             }

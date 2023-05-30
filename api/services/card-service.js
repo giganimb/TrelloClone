@@ -67,6 +67,8 @@ module.exports = {
       position: body.to.cardPosition + 1,
       description: card.description,
       listId: body.to.listId,
+      expiryDate: card.expiryDate,
+      priority: card.priority,
     });
 
     return movedCard;

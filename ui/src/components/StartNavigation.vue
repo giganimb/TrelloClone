@@ -10,7 +10,7 @@
         <v-toolbar-title>
             <router-link to="/" class="router-link">
                 <div style="color:white">
-                    Brello
+                    Banban
                 </div>
             </router-link>
         </v-toolbar-title>

@@ -23,9 +23,8 @@
     <work-navigation
     @getUsersError="onUserError"></work-navigation>
 
-    <div style="margin-top: 30px;">
-      <v-container>
-        <v-row>
+    <div style="margin-top: 30px; margin-left: 10%; margin-right: 10%;">
+        <div class="d-flex flex-row justify-space-around flex-wrap">
           <user-item
             v-bind:key="user._id"
             v-for="user in this.users"
@@ -35,9 +34,8 @@
             @deleteUserError="onUserError"
             >
           </user-item>
-        </v-row>
+        </div>
         <user-info-dialog></user-info-dialog>
-      </v-container>
     </div>
 
   </div>
@@ -82,11 +80,9 @@ import UserInfoDialog from '@/components/user/UserInfoDialog.vue';
           this.$store.dispatch("getAllUsers");
         },
 
-        // created(){
-        //   if(!localStorage.getItem('token')){
-        //       this.$router.push({name: 'authorization'});
-        //   }
-        // },
+        created() {
+          document.title = 'Admin panel';
+        },
     }
 </script>
 

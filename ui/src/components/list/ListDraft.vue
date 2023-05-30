@@ -1,6 +1,6 @@
 <template>
   <form :class="classList" @submit.prevent="addList">
-    <input type="text" class="text-input" maxlength="14" contenteditable="true" v-model="name" ref="textInput" placeholder="Add new list" @focusin="startEditing" @focusout="finishEditing">
+    <input type="text" class="text-input" maxlength="30" contenteditable="true" v-model="name" ref="textInput" placeholder="Add new list" @focusin="startEditing" @focusout="finishEditing">
     <button type="submit" class="add-button" v-if="isEditing || isAddable">
       Add
     </button>
@@ -24,7 +24,7 @@
                 this.isEditing = false;
             },
             addList() {
-                this.$store.dispatch('createList', { name: this.name, position: (this.countOflists + 1), boardId: this.boardId })
+                this.$store.dispatch('createList', { name: this.name, position: (this.countOflists + 1), boardId: this.boardId, workspaceId: this.currentBoard.workspaceId })
                       .then((response) => {
                       if(this.listError){
                         this.$emit("createListError");
@@ -62,6 +62,9 @@
             },
             boardId() {
                 return this.$store.state.board.currentBoard._id;
+            },
+            currentBoard() {
+                return this.$store.state.board.currentBoard;
             },
             listError() {
                 return this.$store.state.list.listError;

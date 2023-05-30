@@ -161,11 +161,9 @@
         }
       },
 
-      // created() {
-      //   if (this.isAuth) {
-      //     this.$router.push('/workspaces');
-      //   }
-      // },
+      created() {
+        document.title = 'Authorization';
+      },
     }
 </script>
 

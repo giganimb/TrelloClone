@@ -206,7 +206,11 @@
         signupError() {
           return this.$store.state.auth.signupError;
         },
-      }
+      },
+
+      created() {
+        document.title = 'Registration';
+      },
     }
 </script>
 

@@ -5,6 +5,8 @@ const Card = new Schema(
     name: { type: String, required: true },
     position: { type: Number },
     description: { type: String },
+    expiryDate: { type: String },
+    priority: { type: Number },
     listId: {
       ref: 'List',
       type: Schema.Types.ObjectId,

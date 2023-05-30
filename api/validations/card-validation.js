@@ -23,9 +23,9 @@ const createCardSchema = checkSchema({
     isLength: {
       options: {
         min: 2,
-        max: 14,
+        max: 100,
       },
-      errorMessage: 'Name must be more than 2 and less than 14 characters',
+      errorMessage: 'Name must be more than 2 and less than 100 characters',
     },
   },
   // position: {
@@ -70,9 +70,9 @@ const updateCardSchema = checkSchema({
     isLength: {
       options: {
         min: 2,
-        max: 14,
+        max: 100,
       },
-      errorMessage: 'Name must be more than 2 and less than 14 characters',
+      errorMessage: 'Name must be more than 2 and less than 100 characters',
     },
   },
   // position: {

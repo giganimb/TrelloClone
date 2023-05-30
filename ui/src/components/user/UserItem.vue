@@ -3,6 +3,7 @@
     class="mx-auto"
     width="360"
     style="margin-bottom: 30px"
+    elevation="10"
   >
     <v-card-text>
       <p>Created at: {{ getFullDate(new Date(user.createdAt)) }}</p>

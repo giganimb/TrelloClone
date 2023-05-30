@@ -5,8 +5,8 @@ export default class ListService{
         return $api.get(`/list/all`, {params: { boardId: boardId} });
     }
 
-    static async createList(name, position, boardId){
-        return $api.post(`/list/`, { name: name, position: position, boardId: boardId});
+    static async createList(name, position, boardId, workspaceId){
+        return $api.post(`/list/`, { name: name, position: position, boardId: boardId, workspaceId: workspaceId});
     }
 
     static async updateList(id, name, boardId){

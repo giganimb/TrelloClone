@@ -97,15 +97,8 @@ import WorkspaceDialog from '@/components/workspace/WorkspaceDialog.vue';
           },
         },
         
-        // mounted(){
-        //   if(!localStorage.getItem('token')){
-        //       this.$router.push({name: 'authorization'});
-        //   };
-        //   this.$store.dispatch('getUser', localStorage.getItem('userId') ?? this.authId);
-        //   this.$store.dispatch('getAllWorkspaces', localStorage.getItem('userId') ?? this.authId);
-        // },
-
         created(){
+          document.title = 'Workspaces';
           if(!this.isAuth){
               this.$router.push({name: 'authorization'});
           };

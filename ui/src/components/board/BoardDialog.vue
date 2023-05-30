@@ -11,8 +11,8 @@
                       v-model="currentBoard.name"
                       :rules="nameRules"
                       label="Name"
-                      :counter="14"
-                      :maxlength="14"
+                      :counter="30"
+                      :maxlength="30"
                       color="#6200EA"
                       >
                     </v-text-field>
@@ -29,6 +29,8 @@
                       v-model="currentBoard.description"
                       class="mb-2"
                       height="200"
+                      :counter="1000"
+                      :maxlength="1000"
                       no-resize
                       outlined
                       label="Description"
@@ -64,7 +66,7 @@
   
         data: () => ({
             nameRules: [
-              v => (v && v.length >= 2 && v.length <= 14) || 'Name must be more than 2 and less than 14 characters',
+              v => (v && v.length >= 2 && v.length <= 30) || 'Name must be more than 2 and less than 30 characters',
             ],
             colors: [
               '#823DE1',

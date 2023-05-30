@@ -30,7 +30,7 @@ const routes = [
     component: () => import('../pages/BoardsPage.vue')
   },
   {
-    path: '/:id/lists',
+    path: '/:workspaceId/:id/lists',
     name: 'lists',
     component: () => import('../pages/ListsPage.vue')
   },

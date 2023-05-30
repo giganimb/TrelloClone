@@ -14,7 +14,7 @@
                 <v-toolbar-title>
                     <router-link to="/workspaces" class="router-link">
                         <div style="color:white">
-                            Brello
+                            Banban
                         </div>
                     </router-link>
                 </v-toolbar-title>

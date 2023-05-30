@@ -27,7 +27,8 @@
         <work-navigation></work-navigation>
         <div>
           <div class="page-title">
-            <h1>Boards</h1>
+            <h3 style="position: absolute; margin-left: 40px; margin-top: 10px;"> <router-link class="page-title-link" to="/workspaces">Workspaces</router-link> </h3>
+            <h1> {{ this.currentWorkspace.name }} </h1>
           </div>
           <v-container>
             <div class="d-flex flex-row justify-start">
@@ -150,6 +151,9 @@
             workspaceId() {
                 return this.$store.state.workspace.currentWorkspace._id;
             },
+            currentWorkspace() {
+                return this.$store.state.workspace.currentWorkspace;
+            },
             boards() {
               return this.$store.state.board.boards;
             },
@@ -172,21 +176,24 @@
                                                      sort_type: this.typeSelect.value, sort_field: this.fieldSelect.value});
           },
 
-          // created(){
-          //   if(!this.isAuth){
-          //       this.$router.push({name: 'authorization'});
-          //   };
-          //   this.$store.dispatch('getAllBoards', this.workspaceId);
-          // },
-  
+          created() {
+            document.title = 'Boards';
+          },
       }
   </script>
   
-  <style>
+  <style scoped>
   .page-title{
     color: #0d001f;
     text-align: center;
     margin-top: 20px;
+  }
+  .page-title-link{
+    text-decoration: none;
+    color: #0d001f;
+  }
+  .page-title-link:hover{
+    text-decoration: underline;
   }
   .v-alert {
     position: fixed;

@@ -30,7 +30,11 @@ module.exports = {
 
     if (conflict) throw ApiError.UnprocessableEntity('Board already exists');
 
-    const board = await Board.create({ name: name, color: color, workspaceId: workspaceId });
+    const board = await Board.create({
+      name: name,
+      color: color,
+      workspaceId: workspaceId,
+    });
 
     return board;
   },

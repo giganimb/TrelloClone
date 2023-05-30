@@ -23,9 +23,9 @@ const createWorkspaceSchema = checkSchema({
     isLength: {
       options: {
         min: 2,
-        max: 14,
+        max: 30,
       },
-      errorMessage: 'Name must be more than 2 and less than 14 characters',
+      errorMessage: 'Name must be more than 2 and less than 30 characters',
     },
   },
   userId: {
@@ -47,9 +47,9 @@ const updateWorkspaceSchema = checkSchema({
     isLength: {
       options: {
         min: 2,
-        max: 14,
+        max: 30,
       },
-      errorMessage: 'Name must be more than 2 and less than 14 characters',
+      errorMessage: 'Name must be more than 2 and less than 30 characters',
     },
   },
 });

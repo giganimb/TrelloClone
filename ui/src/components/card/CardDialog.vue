@@ -8,20 +8,20 @@
               <v-card-text>
                   <div class="pt-4 d-flex flex-column align-center">
                     <div class="d-flex flex-row align-center justify-space-around" style="width: 100%;">
-                      <div style="max-width: 300px; width: 100%; min-width: 100px;">
+                      <div style="width: 100%; max-width: 360px;">
                         <v-text-field 
                           v-model="currentCard.name"
                           :rules="nameRules"
                           label="Name"
-                          :counter="14"
-                          :maxlength="14"
+                          :counter="100"
+                          :maxlength="100"
                           color="#6200EA"
                           >
                         </v-text-field>
                       </div>
                       
                       <div class="question-button" @click="solveTask">
-                        <v-tooltip bottom>
+                        <v-tooltip bottom nudge-left="20">
                           <template v-slot:activator="{ on, attrs }">
                             <img class="icon" src="@/assets/icons/question.png" width="20px" height="20px" v-bind="attrs" v-on="on">
                           </template>
@@ -68,7 +68,49 @@
                       ></v-textarea>
                     </div>
 
-                    <div class="d-flex flex-row justify-space-between" style="width: 100%">
+                    <v-menu
+                      v-model="datePickerMenu"
+                      :close-on-content-click="false"
+                      transition="scale-transition"
+                      offset-y
+                      top
+                      nudge-left="36"
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="currentCard.expiryDate"
+                          label="Expiry date"
+                          color="#6200EA"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="currentCard.expiryDate"
+                        :min="minDate()"
+                        :max="maxDate()"
+                        color="#6200EA"
+                        elevation="24"
+                        no-title
+                        @input="datePickerMenu = false"
+                      ></v-date-picker>
+                    </v-menu>
+
+                    <div class="mt-4" style="width: 240px;">
+                      <v-select
+                        v-model="currentCard.priority"
+                        :items="priorityItems"
+                        label="Priority"
+                        outlined
+                        color="#6200EA"
+                        dense
+                      ></v-select>
+                    </div>
+
+                    <div class="mt-4 d-flex flex-row justify-space-between" style="width: 100%">
                       <v-btn 
                         :disabled="!currentCard.description"
                         color="#6200EA"
@@ -108,11 +150,33 @@
             taskSolution: '',
             descriptionSummarization: '',
             nameRules: [
-              v => (v && v?.length >= 2 && v?.length <= 14) || 'Name must be more than 2 and less than 14 characters',
+              v => (v && v?.length >= 2 && v?.length <= 100) || 'Name must be more than 2 and less than 100 characters',
             ],
             descriptionRules: [
               v => (v.length <= 1000) || 'Description must be less than 1000 characters',
             ],
+            datePickerMenu: false,
+            datePickerDate: '',
+
+            prioritySelect: '',
+            priorityItems: [
+              {
+                text: 'None',
+                value: null,
+              },
+              {
+                text: 'Low',
+                value: 1,
+              },
+              {
+                text: 'Medium',
+                value: 2,
+              },
+              {
+                text: 'High',
+                value: 3,
+              },
+            ]
         }),
   
         methods: {
@@ -125,7 +189,7 @@
             this.$store.commit('hideCardDialog');
           },
           editCard(){
-            this.$store.dispatch('updateCard', { id: this.currentCard._id, name: this.currentCard.name, boardId: this.$route.params.id, description: this.currentCard.description })
+            this.$store.dispatch('updateCard', { id: this.currentCard._id, name: this.currentCard.name, boardId: this.$route.params.id, description: this.currentCard.description, expiryDate: this.currentCard.expiryDate, priority: this.currentCard.priority })
                       .then((response) => {
                       if(this.boardError){
                           this.$emit("updateCardError");
@@ -159,6 +223,18 @@
                 console.log(error);
               });
           },
+          getIsoDate(date){
+            return `${date.getFullYear()}-${(date.getMonth() + 1).toString().length == 1 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate().toString().length == 1 ? '0' + date.getDate() : date.getDate()}`;
+          },
+          minDate(){
+            const date = new Date();
+            return this.getIsoDate(date);
+          },
+          maxDate(){
+            let date = new Date();
+            date.setDate(date.getDate() + 365);
+            return this.getIsoDate(date);
+          }
         },
 
         computed: {

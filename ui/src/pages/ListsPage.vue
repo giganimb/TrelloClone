@@ -24,11 +24,17 @@
         </div>
         <div v-else style="height: 100%;">
             <work-navigation></work-navigation>
+            
+            <div class="page-title">
+                <h3 style="position: absolute; margin-left: 40px; margin-top: 10px;"> <router-link class="page-title-link" to="/workspaces">Workspaces</router-link> > <router-link class="page-title-link" :to="{ name: 'boards', params: { id: this.currentBoard?.workspaceId } }">Boards</router-link> </h3>
+                <h1> {{ this.currentWorkspace?.name }} / {{ this.currentBoard?.name }} </h1>
+            </div>
         
             <div class="h-scroll">
                 <div class="main">
                     <list-item
                         v-bind:key="list._id"
+                        ref="allLists"
                         v-for="list in lists"
                         :list="list"
                         @deleteListError="onListError"
@@ -78,13 +84,25 @@ import ListDialog from '@/components/list/ListDialog.vue';
                 this.errorAlert = true;
             },
             onListSuccess(){
-                this.$store.dispatch('getAllLists', this.boardId);
+                this.$store.dispatch('getAllLists', this.boardId)
+                    .then(res => {
+                        const lists = this.$refs.allLists;
+                        for (let i = 0; i < lists.length; i++) {
+                            lists[i].sortList();
+                        }
+                    });
             },
             onCardError(){
                 this.errorAlert = true;
             },
             onCardSuccess(){
-                this.$store.dispatch('getAllLists', this.boardId);
+                this.$store.dispatch('getAllLists', this.boardId)
+                    .then(res => {
+                        const lists = this.$refs.allLists;
+                        for (let i = 0; i < lists.length; i++) {
+                            lists[i].sortList();
+                        }
+                    });
             },
         },
 
@@ -97,6 +115,12 @@ import ListDialog from '@/components/list/ListDialog.vue';
             },
             boardId() {
                 return this.$store.state.board.currentBoard._id;
+            },
+            currentBoard() {
+                return this.$store.state.board.currentBoard;
+            },
+            currentWorkspace() {
+                return this.$store.state.workspace.currentWorkspace;
             },
             listError() {
               return this.$store.state.list.listError;
@@ -111,6 +135,7 @@ import ListDialog from '@/components/list/ListDialog.vue';
                 this.$router.push({name: 'authorization'});
             };
             this.$store.dispatch('getBoard', this.$route.params.id ?? this.boardId);
+            this.$store.dispatch('getWorkspace', this.$route.params.workspaceId ?? this.currentWorkspace._id);
             this.$store.dispatch('getAllLists', this.$route.params.id ?? this.boardId);
         },
 
@@ -118,16 +143,25 @@ import ListDialog from '@/components/list/ListDialog.vue';
             this.$store.dispatch('joinPanel', this.$route.params.id ?? this.boardId);
         },
 
-        // created(){
-        //     if(!this.isAuth){
-        //         this.$router.push({name: 'authorization'});
-        //     };
-        //     this.$store.dispatch('getAllLists', this.boardId);
-        // },
+        created() {
+            document.title = 'Lists';
+        },
     }
 </script>
 
 <style scoped>
+.page-title{
+    color: #0d001f;
+    text-align: center;
+    margin-top: 20px;
+}
+.page-title-link{
+    text-decoration: none;
+    color: #0d001f;
+}
+.page-title-link:hover{
+    text-decoration: underline;
+}
 .h-scroll{
     height: calc(100% - 50px);
     overflow-y: hidden;

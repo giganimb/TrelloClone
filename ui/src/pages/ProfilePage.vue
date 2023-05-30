@@ -41,7 +41,7 @@
 
     <work-navigation></work-navigation>
 
-    <v-card style="margin-left: auto; margin-right: auto;" width="600" elevation="24">
+    <v-card style="margin-left: auto; margin-right: auto;" width="700" elevation="24">
       <div class="page-title">
         <h1>Profile</h1>
       </div>
@@ -70,8 +70,9 @@
                 truncate-length="14"
               ></v-file-input>
             </div>
-            <div style="width: 300px;">
+            <div style="width: 380px;">
               <v-text-field
+                class="mb-4"
                 v-model="userName"
                 :counter="20"
                 :rules="userNameRules"
@@ -81,6 +82,7 @@
               ></v-text-field>
 
               <v-text-field
+                class="mb-4"
                 v-model="name"
                 :counter="20"
                 :rules="nameRules"
@@ -90,6 +92,7 @@
               ></v-text-field>
 
               <v-text-field
+                class="mb-4"
                 v-model="surname"
                 :counter="20"
                 :rules="surnameRules"
@@ -98,7 +101,7 @@
                 color="#6200EA"
               ></v-text-field>
 
-              <div class="d-flex flex-row" style="width: 100px">
+              <div class="d-flex flex-row" style="width: 160px">
                 <v-btn
                 color="#6200EA"
                 class="ml-2 btn"
@@ -205,12 +208,9 @@ import WorkNavigation from '@/components/WorkNavigation.vue';
             });
         },
 
-        // created(){
-        //   if(!localStorage.getItem('token')){
-        //       this.$router.push({name: 'authorization'});
-        //   }
-        //   this.getUser();
-        // },
+        created() {
+          document.title = 'Profile';
+        },
     }
 </script>
 

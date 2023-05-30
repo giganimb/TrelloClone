@@ -9,7 +9,7 @@
                             A kanban board is one of the most popular tools that can be used to implement kanban to manage work at a personal or organizational level.
                             <br>
                             <span style="font-weight: 700; font-size: 24px;">
-                                Brello can be used for personal organization, such as managing household chores or tracking personal goals.
+                                Banban can be used for personal organization, such as managing household chores or tracking personal goals.
                             </span>
                         </div>
                         <div class="ma-4" style="margin-top: auto;">
@@ -203,7 +203,7 @@
                 <v-divider></v-divider>
 
                 <v-card-text class="white--text">
-                    <strong>Brello</strong> - {{ new Date().getFullYear() }}
+                    <strong>Banban</strong> - {{ new Date().getFullYear() }}
                 </v-card-text>
             </v-card>
         </v-footer>
@@ -267,6 +267,10 @@ import StartNavigation from '@/components/StartNavigation.vue';
             signup(){
                 this.$router.push('/registration')
             }
+        },
+
+        created() {
+            document.title = 'Start page';
         },
     };
 </script>

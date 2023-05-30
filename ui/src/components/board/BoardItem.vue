@@ -1,6 +1,6 @@
 <template>
   <v-col cols="4">
-    <v-card width="400" min-height="120" :style="{ background: board.color }">
+    <v-card width="400" min-height="120" elevation="10" :style="{ background: board.color }">
       <v-card-text>
         <div class="d-flex flex-row align-center justify-space-between mt-2">
           <div @click="onBoardClick">
@@ -69,7 +69,7 @@
                   this.$emit("getListsError");
                 }
                 else{
-                  this.$router.push({name: 'lists', params: { id: this.board._id }});
+                  this.$router.push({name: 'lists', params: { id: this.board._id, workspaceId: this.board.workspaceId }});
                 }
               })
               .catch((error) => {
@@ -93,6 +93,7 @@
   font-weight: 600; 
   color:#ffffff; 
   margin-right: 30px;
+  word-break: break-word;
 }
 .card-text{
   text-align: left; 
