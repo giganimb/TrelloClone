@@ -131,21 +131,19 @@ import ListDialog from '@/components/list/ListDialog.vue';
         },
         
         mounted(){
-            if(!localStorage.getItem('token')){
-                this.$router.push({name: 'authorization'});
-            };
+            if(!this.isAuth && !localStorage.getItem('token')){
+              this.$router.push({name: 'authorization'});
+            }
             this.$store.dispatch('getBoard', this.$route.params.id ?? this.boardId);
             this.$store.dispatch('getWorkspace', this.$route.params.workspaceId ?? this.currentWorkspace._id);
             this.$store.dispatch('getAllLists', this.$route.params.id ?? this.boardId);
         },
 
         created() {
+            document.title = 'Lists';
             this.$store.dispatch('joinPanel', this.$route.params.id ?? this.boardId);
         },
 
-        created() {
-            document.title = 'Lists';
-        },
     }
 </script>
 

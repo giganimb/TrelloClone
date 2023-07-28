@@ -14,6 +14,9 @@ module.exports = (app, server) => {
     socket.on('join-panel', (boardId) => {
       socket.join(boardId);
     });
+    socket.on('join-workspace', (workspaceId) => {
+      socket.join(workspaceId);
+    });
   });
 
   return socketServer;

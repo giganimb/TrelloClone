@@ -45,7 +45,9 @@
         @updateWorkspaceError="onWorkspaceError"
         @updateWorkspaceSuccess="onWorkspaceSuccess"
         @deleteWorkspaceError="onWorkspaceError"
-        @deleteWorkspaceSuccess="onWorkspaceSuccess"></workspace-dialog>
+        @deleteWorkspaceSuccess="onWorkspaceSuccess"
+        @addUserToWorkspaceError="onWorkspaceError"
+        @deleteUserFromWorkspaceError="onWorkspaceError"></workspace-dialog>
       </v-container>
     </div>
   </div>
@@ -84,7 +86,7 @@ import WorkspaceDialog from '@/components/workspace/WorkspaceDialog.vue';
             return this.$store.state.auth.isAuth;
           },
           authId() {
-            return this.$store.state.auth.userData.user.id;
+            return this.$store.state.auth.userData?.user?.id;
           },
           workspaces() {
             return this.$store.state.workspace.workspaces;
@@ -97,13 +99,16 @@ import WorkspaceDialog from '@/components/workspace/WorkspaceDialog.vue';
           },
         },
         
+        mounted() {
+          if(!this.isAuth && !localStorage.getItem('token')){
+              this.$router.push({name: 'authorization'});
+          }
+          this.$store.dispatch('getUser', localStorage.getItem('userId') ?? this.authId);
+          this.$store.dispatch('getAllWorkspaces', localStorage.getItem('userId') ?? this.authId);
+        },
+
         created(){
           document.title = 'Workspaces';
-          if(!this.isAuth){
-              this.$router.push({name: 'authorization'});
-          };
-          this.$store.dispatch('getUser', this.authId);
-          this.$store.dispatch('getAllWorkspaces', this.authId);
         },
 
     }

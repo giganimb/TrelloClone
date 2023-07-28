@@ -20,4 +20,16 @@ export default class WorkspaceService{
     static async deleteWorkspace(id){
         return $api.delete(`/workspace/${id}`);
     }
+
+    static async getWorkspaceMembers(id){
+        return $api.get(`/workspace/${id}/getMembers`);
+    }
+
+    static async addUserToWorkspace(workspaceId, userName){
+        return $api.post(`/workspace/addUser`, { workspaceId: workspaceId, userName: userName});
+    }
+
+    static async deleteUserFromWorkspace(workspaceId, userId){
+        return $api.post(`/workspace/deleteUser`, { workspaceId: workspaceId, userId: userId});
+    }
 }

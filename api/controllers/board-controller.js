@@ -1,4 +1,5 @@
 const boardService = require('../services/board-service');
+const socketServer = require('../socket-connection');
 
 module.exports = {
   async getAll(req, res) {
@@ -24,6 +25,9 @@ module.exports = {
   async createBoard(req, res) {
     try {
       const board = await boardService.createBoard(req.body);
+
+      socketServer().to(req.body.workspaceId).emit('workspace updated');
+
       res.status(200).json(board);
     } catch (er) {
       console.log(er);
@@ -34,6 +38,9 @@ module.exports = {
   async updateBoard(req, res) {
     try {
       const board = await boardService.updateBoard(req.params.id, req.body);
+
+      socketServer().to(req.body.workspaceId).emit('workspace updated');
+
       res.status(200).json(board);
     } catch (er) {
       console.log(er);
@@ -44,6 +51,9 @@ module.exports = {
   async deleteBoard(req, res) {
     try {
       const board = await boardService.deleteBoard(req.params.id);
+
+      socketServer().to(req.query.workspaceId).emit('workspace updated');
+
       res.status(200).json(board);
     } catch (er) {
       console.log(er);

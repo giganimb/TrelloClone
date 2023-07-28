@@ -10,6 +10,10 @@ module.exports = {
     return user;
   },
   async updateUser(id, body) {
+    const conflict = await User.findOne({ userName: body.userName });
+
+    if (conflict && conflict._id != id) throw ApiError.UnprocessableEntity('Username already in use');
+
     const updatedUser = await User.findByIdAndUpdate(id, body, { new: true });
 
     if (!updatedUser) throw ApiError.NotFound();

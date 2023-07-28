@@ -51,7 +51,7 @@ export default{
     },
 
     actions: {
-        async init({ state, dispatch }) {
+        async initPanel({ state, dispatch }) {
             socket.on('panel updated', () => {
               dispatch('getAllLists', state.lists[0].boardId);
             })

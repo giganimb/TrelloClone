@@ -24,7 +24,8 @@ const store = new Vuex.Store({
 });
 
 export default async function init() {
-  await store.dispatch('init')
+  await store.dispatch('initPanel');
+  await store.dispatch('initWorkspace');
 
-  return store
+  return store;
 }

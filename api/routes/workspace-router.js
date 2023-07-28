@@ -41,5 +41,8 @@ router.delete(
   authorizationMiddleware,
   workspaceController.deleteWorkspace
 );
+router.post('/workspace/addUser', authorizationMiddleware, workspaceController.addUserToWorkspace);
+router.post('/workspace/deleteUser', authorizationMiddleware, workspaceController.deleteUserFromWorkspace);
+router.get('/workspace/:id/getMembers', authorizationMiddleware, workspaceController.getWorkspaceMembers);
 
 module.exports = router;

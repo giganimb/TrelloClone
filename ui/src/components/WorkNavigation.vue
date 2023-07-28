@@ -163,7 +163,9 @@
         },
 
         mounted(){
-            this.$store.dispatch('getUser', localStorage.getItem('userId') ?? this.authId);
+            if(!this.user){
+                this.$store.dispatch('getUser', localStorage.getItem('userId') ?? this.authId);
+            }
         },
 
         // created() {

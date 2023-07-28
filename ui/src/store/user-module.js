@@ -30,7 +30,6 @@ export default{
         },
         async updateUser({ commit }, user){
             try{
-                console.log(`--store: ${user.image}`);
                 const response = await UserService.updateUser(user.id, user.userName, user.name, user.surname, user.image);
                 console.log(response);
                 commit("setUser", response.data);

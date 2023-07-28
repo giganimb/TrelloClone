@@ -1,4 +1,6 @@
 import BoardService from "@/services/BoardService";
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000');
 
 export default{
     state: {
@@ -27,6 +29,16 @@ export default{
     },
 
     actions: {
+        async initWorkspace({ state, dispatch }) {
+            socket.on('workspace updated', () => {
+              dispatch('getAllBoards', {workspaceId: state.boards[0].workspaceId});
+            })
+        },
+        async joinWorkspace({ dispatch }, board) {
+            socket.emit('join-workspace', board.workspaceId);
+
+            dispatch('getAllBoards', board);
+        },
         async getAllBoards({ commit }, board){
             try{
                 const response = await BoardService.getAllBoards(board.workspaceId, board.sort_type, board.sort_field);
@@ -75,9 +87,9 @@ export default{
                 commit("setBoardError", error.response?.data?.message);
             }
         },
-        async deleteBoard({ commit }, id){
+        async deleteBoard({ commit }, board){
             try{
-                const response = await BoardService.deleteBoard(id);
+                const response = await BoardService.deleteBoard(board.id, board.workspaceId);
                 console.log(response);
                 commit("setCurrentBoard", null);
             }

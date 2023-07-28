@@ -17,7 +17,7 @@ export default class BoardService{
         return $api.patch(`/board/${id}`, { name: name, workspaceId: workspaceId, color: color, description: description });
     }
 
-    static async deleteBoard(id){
-        return $api.delete(`/board/${id}`);
+    static async deleteBoard(id, workspaceId){
+        return $api.delete(`/board/${id}`, {params: { workspaceId: workspaceId} });
     }
 }

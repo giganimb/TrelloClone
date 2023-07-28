@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const Workspace = new Schema(
   {
     name: { type: String, required: true },
-    userId: {
+    ownerId: {
       ref: 'User',
       type: Schema.Types.ObjectId,
       index: true,

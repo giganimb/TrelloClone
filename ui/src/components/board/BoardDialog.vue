@@ -103,7 +103,7 @@
           },
           deleteBoard(){
             this.$store.commit('hideBoardDialog');
-            this.$store.dispatch('deleteBoard', this.currentBoard._id)
+            this.$store.dispatch('deleteBoard', {id: this.currentBoard._id, workspaceId: this.currentBoard.workspaceId})
                       .then((response) => {
                       if(this.boardError){
                           this.$emit("deleteBoardError");

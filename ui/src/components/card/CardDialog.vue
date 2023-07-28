@@ -30,6 +30,10 @@
                       </div>
                     </div>
 
+                    <svg v-show="spinnerForSolution" class="spinner mt-4" viewBox="0 0 50 50">
+                      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                    </svg>
+
                     <div class="mt-4" v-show="currentCardSolution" style="width: 100%; max-width: 400px; min-width: 200px;">
                       <v-textarea
                         v-model="currentCardSolution"
@@ -56,6 +60,10 @@
                       ></v-textarea>
                     </div>
                     
+                    <svg v-show="spinnerForSummarization" class="spinner mb-4" viewBox="0 0 50 50">
+                      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                    </svg>
+
                     <div v-show="currentCardDescriptionSummarization" style="width: 100%; max-width: 400px; min-width: 200px;">
                       <v-textarea
                         v-model="currentCardDescriptionSummarization"
@@ -147,6 +155,8 @@
         name: "card-dialog",
   
         data: () => ({
+            spinnerForSolution: false,
+            spinnerForSummarization: false,
             taskSolution: '',
             descriptionSummarization: '',
             nameRules: [
@@ -158,7 +168,6 @@
             datePickerMenu: false,
             datePickerDate: '',
 
-            prioritySelect: '',
             priorityItems: [
               {
                 text: 'None',
@@ -206,8 +215,10 @@
                   });
           },
           solveTask(){
+            this.spinnerForSolution = true;
             this.$store.dispatch('solveCardTask', { task: this.currentCard.name, email: this.currentUser.email })
               .then((response) => {
+                this.spinnerForSolution = false;
                 this.taskSolution = response;
               })
               .catch((error) => {
@@ -215,8 +226,10 @@
               });
           },
           summarizeDescription(){
+            this.spinnerForSummarization = true;
             this.$store.dispatch('summarizeCardDescription', { text: this.currentCard.description, email: this.currentUser.email })
               .then((response) => {
+                this.spinnerForSummarization = false;
                 this.descriptionSummarization = response;
               })
               .catch((error) => {
@@ -234,7 +247,7 @@
             let date = new Date();
             date.setDate(date.getDate() + 365);
             return this.getIsoDate(date);
-          }
+          },
         },
 
         computed: {
@@ -261,7 +274,7 @@
       }
 </script>
   
-<style scoped>
+<style lang="scss" scoped>
   .dialog-btn{
     color: #ffffff!important;
   }
@@ -283,4 +296,39 @@
   .icon:hover{
     background: #cccccc;
   }
+
+  .spinner {
+    animation: rotate 2s linear infinite;
+    width: 50px;
+    height: 50px;
+    
+    & .path {
+      stroke: #d1b5f8;
+      stroke-linecap: round;
+      animation: dash 1.5s ease-in-out infinite;
+    }
+    
+  }
+
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes dash {
+    0% {
+      stroke-dasharray: 1, 150;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -35;
+    }
+    100% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -124;
+    }
+  }
+
 </style>

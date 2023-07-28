@@ -32,13 +32,13 @@ module.exports = {
   },
 
   async saveToken(userId, refreshToken) {
-    const tokenData = await Token.findOne({ user: userId });
+    const tokenData = await Token.findOne({ userId: userId });
     if (tokenData) {
       tokenData.refreshToken = refreshToken;
       return tokenData.save();
     }
 
-    const newToken = await Token.create({ user: userId, refreshToken: refreshToken });
+    const newToken = await Token.create({ userId: userId, refreshToken: refreshToken });
     return newToken;
   },
 

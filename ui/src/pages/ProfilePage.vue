@@ -169,7 +169,7 @@ import WorkNavigation from '@/components/WorkNavigation.vue';
               if(this.userError){
                 this.errorMessage = this.userError;
                 this.errorAlert = true;
-                this.$store.commit('userError', null);
+                this.$store.commit('setUserError', null);
               }
               else{
                 this.successAlert = true;
@@ -199,7 +199,7 @@ import WorkNavigation from '@/components/WorkNavigation.vue';
         },
         
         mounted(){
-          if(!localStorage.getItem('token')){
+          if(!this.isAuth && !localStorage.getItem('token')){
               this.$router.push({name: 'authorization'});
           }
           this.$store.dispatch('getUser', localStorage.getItem('userId') ?? this.user)

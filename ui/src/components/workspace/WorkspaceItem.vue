@@ -3,12 +3,15 @@
     <v-card elevation="10">
       <v-card-text>
         <div class="d-flex flex-row align-center">
+          <img class="mr-2" v-show="workspace?.ownerId == userId" src="@/assets/icons/crown.png" width="20px" height="20px">
+
           <div @click="onWorkspaceClick" class="workspace-name">
             {{ workspace.name }}
           </div>
         
           <div style="margin-left: auto; margin-right: 0;">
-            <v-btn 
+            <v-btn
+              :disabled="workspace?.ownerId != userId" 
               color="#6200EA"
               fab
               small
@@ -41,6 +44,7 @@
         methods: {
           onWorkspaceEditBtnClick() {
               this.$store.commit("setCurrentWorkspace", this.workspace);
+              this.$store.dispatch("getWorkspace", this.workspace._id);
               this.$store.commit("showWorkspaceDialog");
           },
           onWorkspaceClick(){
@@ -64,6 +68,9 @@
         computed: {
           boardError() {
               return this.$store.state.board.boardError;
+          },
+          userId() {
+            return this.$store.state.user?.user?._id;
           },
         },
     }

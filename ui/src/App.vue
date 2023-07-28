@@ -20,17 +20,25 @@
       userEmail() {
         return this.$store.state.auth.userData.user.email;
       },
-      
+      authId() {
+        return this.$store.state.auth.userData.user.id;
+      },
     },
-    mounted(){
+    created(){
       if(localStorage.getItem("token")) {
-        this.$store.dispatch("checkAuth");
+        this.$store.dispatch("checkAuth")
+          .then(res => {
+            if(!this.isAuth){
+              this.$router.push({name: 'authorization'});
+            }
+            else {
+              this.$store.dispatch('getUser', localStorage.getItem('userId') ?? this.authId);
+            }
+          })
+          .catch(er => {
+            console.log(er)
+          })
       }
     },
-    // created(){
-    //   if(localStorage.getItem("token")) {
-    //     this.$store.dispatch("checkAuth");
-    //   }
-    // }
   };
 </script>

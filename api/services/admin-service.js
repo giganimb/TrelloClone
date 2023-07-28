@@ -28,7 +28,7 @@ module.exports = {
   },
 
   async getUserStatistics(userId) {
-    const workspaces = await Workspace.find({ userId });
+    const workspaces = await Workspace.find({ ownerId: userId });
     const workspacesIds = getEntityIds(workspaces);
 
     const boards = await Board.find({ workspaceId: workspacesIds });

@@ -74,7 +74,7 @@ import UserInfoDialog from '@/components/user/UserInfoDialog.vue';
         },
 
         mounted(){
-          if(!localStorage.getItem('token')){
+          if(!this.isAuth && !localStorage.getItem('token')){
               this.$router.push({name: 'authorization'});
           }
           this.$store.dispatch("getAllUsers");

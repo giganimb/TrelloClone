@@ -156,7 +156,7 @@
       },
       
       mounted(){
-        if (localStorage.getItem('token')) {
+        if (localStorage.getItem('token') && this.isAuth) {
           this.$router.push({name: 'workspaces'});
         }
       },

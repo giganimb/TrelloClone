@@ -38,6 +38,7 @@
               </create-board-form>
               <div style="width: 100%;" class="d-flex flex-row align-end">
                 <v-combobox
+                  style="max-width: 230px;"
                   class="ml-4"
                   label="Sort by"
                   v-model="fieldSelect"
@@ -48,6 +49,7 @@
                   dense
                 ></v-combobox>
                 <v-combobox
+                  style="max-width: 230px;"
                   class="ml-4"
                   label="Order"
                   v-model="typeSelect"
@@ -166,9 +168,9 @@
           },
           
           mounted(){
-            if(!localStorage.getItem('token')){
-                this.$router.push({name: 'authorization'});
-            };
+            if(!this.isAuth && !localStorage.getItem('token')){
+              this.$router.push({name: 'authorization'});
+            }
             // this.$store.dispatch('getAllWorkspaces', this.authId);
             // this.$store.dispatch('getUser', this.authId);
             this.$store.dispatch('getWorkspace', this.$route.params.id ?? this.workspaceId);
@@ -178,6 +180,8 @@
 
           created() {
             document.title = 'Boards';
+            this.$store.dispatch('joinWorkspace', { workspaceId: this.$route.params.id ?? this.workspaceId, 
+                                                     sort_type: this.typeSelect.value, sort_field: this.fieldSelect.value});
           },
       }
   </script>

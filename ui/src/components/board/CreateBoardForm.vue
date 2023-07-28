@@ -8,6 +8,7 @@
               :counter="30"
               :maxlength="30"
               color="#6200EA"
+              @keypress.enter="createBoard"
               >
           </v-text-field>
   
